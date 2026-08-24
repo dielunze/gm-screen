@@ -1,0 +1,29 @@
+# Build output
+target/
+
+# Vaadin generated frontend
+node_modules/
+/app/src/main/frontend/generated/
+/app/src/main/bundles/
+/app/types.d.ts
+/app/vite.generated.ts
+/app/package.json
+/app/package-lock.json
+/app/tsconfig.json
+/app/vite.config.ts
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs / local state
+*.log
+/app/src/main/resources/data/

@@ -1,0 +1,11 @@
+# Normalise line endings in the repository, check out native on Windows.
+* text=auto
+
+# The Maven wrapper shell script must keep LF or it breaks on Unix shells.
+mvnw text eol=lf
+mvnw.cmd text eol=crlf
+
+# Binary
+*.png binary
+*.jpg binary
+*.pdf binary
