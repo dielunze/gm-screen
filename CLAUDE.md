@@ -108,7 +108,27 @@ Issues mit `Closes #<nr>`. Labels: `phase`, `bug`, `idea`, `rules-question`.
 
 ## Phasenstand
 
-**Phase 0 abgeschlossen.** Gerüst steht, Build grün, App startet, Issue-Board gefüllt.
+**Phase 0 und 1 abgeschlossen.** Gerüst steht, Domänenmodell steht, 22 Tests grün.
 
-Als Nächstes: **Phase 1 — Domänenmodell**, noch ohne Logik.
-`Combatant`, `Stats`, `CharacterClass`, `Team`, `CombatState`, plus Marker-Ressource.
+Entwurfsentscheidungen aus Phase 1, die weiter tragen:
+
+- **`record` für Werte ohne Identität, Klasse für Dinge mit Lebenslauf.**
+  `Stats`, `MarkerType` und `CharacterClass` sind unveränderliche Records — sie
+  beschreiben, *was* etwas ist. `Combatant` und `CombatState` sind veränderliche
+  Klassen, weil sich ihr Zustand mehrmals pro Runde ändert.
+- **`Combatant` ist `sealed`** mit exakt zwei Erben, `Hero` und `Enemy`. Ab Phase 6
+  lässt sich darüber ohne `default`-Zweig pattern-matchen.
+- **Ausnahmekonvention:** `null` wirft `NullPointerException` (meist über
+  `Objects.requireNonNull`), vorhandene aber unbrauchbare Werte werfen
+  `IllegalArgumentException`. Gilt im ganzen Modul.
+- **Marker sind Kernmechanik**, nicht Sonderfall — jeder der 19 Helden hat genau
+  eine Ressource. `Hero.setMarker` kappt auf `[0, Maximum]`, weil das Kompendium
+  überzählige Marker verfallen lässt statt sie abzulehnen.
+- Noch **keine Mutatoren** für LP und AP. Die kommen in Phase 2 (AP) und 3 (Schaden).
+
+Als Nächstes: **Phase 2 — Rundenlauf**. Heldenphase → Gegnerphase, Rundenzähler,
+AP-Regeneration. Keine Initiative, siehe Regelbefunde oben.
+
+**Blockiert:** Phase 2 hängt an den Regelfragen #14 (Aktionen pro Zug) und
+#16 (Reihenfolge innerhalb einer Phase). Beide müssen vom Spieldesigner beantwortet
+werden, bevor der Rundenlauf festgeschrieben wird.
